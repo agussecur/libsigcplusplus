@@ -2,8 +2,8 @@ from conans import ConanFile, CMake, tools
 
 
 class LibsigConan(ConanFile):
-    name = "libsig++"
-    version = "2.10.2"
+    name = "libsigc++"
+    version = "3.0.2"
     license = "<Put the package license here>"
     author = "<Put your name here> <And your email here>"
     url = "<Package recipe repository url here, for issues about the package>"
@@ -15,7 +15,7 @@ class LibsigConan(ConanFile):
     generators = "cmake"
 
     def source(self):
-        self.run("git clone https://github.com/conan-io/hello.git")
+        self.run("git clone https://github.com/dbus-cxx/dbus-cxx.git")
         # This small hack might be useful to guarantee proper /MT /MD linkage
         # in MSVC if the packaged project doesn't have variables to set it
         # properly
@@ -35,13 +35,13 @@ conan_basic_setup()''')
         # self.run("cmake --build . %s" % cmake.build_config)
 
     def package(self):
-        self.copy("*.h", dst="include", src="sig++")
-        self.copy("*hello.lib", dst="lib", keep_path=False)
+        self.copy("*.h", dst="include/sigc++", src="sigc++", keep_path=True)
+        self.copy("*sigc++3.0.lib", dst="lib", keep_path=False)
         self.copy("*.dll", dst="bin", keep_path=False)
-        self.copy("*.so", dst="lib", keep_path=False)
+        self.copy("*3.0.so*", dst="lib", keep_path=False)
         self.copy("*.dylib", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["hello"]
+        self.cpp_info.libs = ["sigc++3.0"]
 
